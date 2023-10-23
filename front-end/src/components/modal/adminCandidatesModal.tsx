@@ -5,9 +5,13 @@ import { Server } from "@/apis/setting";
 import Image from "next/image";
 import { RiFileAddFill } from "react-icons/ri";
 import { AiFillPlusCircle } from "react-icons/ai"
+import { useRecoilState } from "recoil";
+import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
 
 export default function AdminCandidatesModal({ ballotId }: any) {
+    const [modal, setModal] = useRecoilState(isModalState);
     const [candidates, setCandidates] = useState<Candidate[]>([]);
+    const [isLoading, setIsLoading] = useRecoilState(isLoadingState);
 
     useEffect(() => {
         getBallotData(ballotId, 'candidates').then((candi) => {
@@ -41,6 +45,9 @@ export default function AdminCandidatesModal({ ballotId }: any) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
+        setIsLoading(true);
+        console.log(isLoading)
+        // setModal(false);
         const isNameValid = formData.candidateName.trim() !== "";
 
         setValidationError({
@@ -65,12 +72,15 @@ export default function AdminCandidatesModal({ ballotId }: any) {
 
             try {
                 const response = await Server.post('/admins/voting/candidates', dataToSend);
-                console.log(response.data);  // 응답 데이터 확인
+                // console.log(response.data);  // 응답 데이터 확인
     
                 // TODO : 후보자 작성 후 모달창 닫기?
+
             } catch (error: any) {
                 console.error(error);
-                alert(error.response.data.message);
+                if (error.response) {
+                    alert(error.response.data.message);
+                }
             }
         } else {
             setValidationError({
@@ -78,6 +88,26 @@ export default function AdminCandidatesModal({ ballotId }: any) {
             })
         }
     }
+
+    useEffect(() => {
+        console.log("isLoading changed:", isLoading);
+        if (isLoading) {
+            console.log("타이머 시작")
+            // 15초 후에 실행되는 로직
+            const timer = setTimeout(async () => {
+                const candi = await getBallotData(ballotId, 'candidates');
+                setCandidates(candi);
+                setIsLoading(false);
+                setModal(true); // 모달 다시 열기
+            }, 15000);
+    
+            // 컴포넌트가 언마운트될 때 타이머 제거
+            return () => {
+                console.log("타이머 clear")
+                clearTimeout(timer);
+            }
+        }
+    }, [isLoading]);
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [selectedImage, setSelectedImage] = useState<File>();
@@ -97,13 +127,10 @@ export default function AdminCandidatesModal({ ballotId }: any) {
 
     return (
         <div className="flex flex-col items-center mx-4 my-4">
-            {console.log(candidates.length)}
             {candidates.length > 0 && (
                 <div className="w-full md:w-1/3 md:justify-start"> 
                     {candidates.map((candidate) => (
                         <div key={candidate.candidateId} className="flex items-center px-4 py-2 border border-grey rounded-lg my-2">
-                            {console.log("후보자")}
-                            {console.log(candidate.candidateId)}
                             <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>
                             <span>{candidate.candidateName}</span>
                         </div>

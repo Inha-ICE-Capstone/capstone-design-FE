@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
 import AdminCandidatesModal from "../modal/adminCandidatesModal";
+import { useRecoilState } from "recoil";
+import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
 
 interface AdminVoteMainProps {
     ballotID: number;
@@ -9,6 +11,8 @@ interface AdminVoteMainProps {
 
 
 export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
+    const [isLoading, setIsLoading] = useRecoilState(isLoadingState);
+
     const [ballotImage, setBallotImage] = useState('');
     const [ballotName, setBallotName] = useState('');
     const [ballotMinAge, SetBallotMinAge] = useState(0);
@@ -82,7 +86,7 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
         })
     }, [])
 
-    const [modal, setModal] = useState(false);
+    const [modal, setModal] = useRecoilState(isModalState);
 
     const handleModal = () => {
         setModal(true);
@@ -147,9 +151,15 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
                     </div>
                 </div>
             </div>
+            {isLoading && (
+                <span className="text-center">잠시만 기다려주세요...</span>
+            )}
+            {!isLoading && modal && (
+                <span className="text-center">후보자가 등록되었습니다.</span>
+            )}
             {modal && (
                 <div>
-                    <AdminCandidatesModal ballotId={ballotID}/>
+                    <AdminCandidatesModal ballotId={ballotID - 1}/>
                 </div>
             )}
         </div>

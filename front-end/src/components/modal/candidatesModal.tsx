@@ -37,19 +37,20 @@ export default function CandidatesModal({ ballotId }: any) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
+        alert("투표가 완료되었습니다. 반영까지 15초의 시간이 소요됩니다.")
+        router.push(`/ballot/ongoing`);
+
         if (selectedCandidateId) {
             try {
                 const response = await Server.post('/voting', formData);
                 console.log(response.data);  // 응답 데이터 확인
     
                 // TODO : 투표하고 로딩화면으로 라우팅
-                // router.push(`/`);
             } catch (error: any) {
                 console.error(error);
                 alert(error.response.data.message);
             }
         }
-
     }
 
     return (
