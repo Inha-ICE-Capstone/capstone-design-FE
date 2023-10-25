@@ -159,7 +159,7 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
             )}
             {modal && (
                 <div>
-                    <AdminCandidatesModal ballotId={ballotID - 1}/>
+                    <AdminCandidatesModal ballotId={ballotID}/>
                 </div>
             )}
         </div>
