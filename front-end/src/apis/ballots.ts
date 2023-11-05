@@ -23,3 +23,8 @@ export const getBallotData = async (ballotID: number, field: string) => {
     const result = await Server.get(`/voting/ballots/${ballotID}`);
     return result.data[field];
 };
+
+export const getRecordsBallot = async () => {
+    const result = await Server.get(`/members/vote-records`);
+    return result.data;
+}
