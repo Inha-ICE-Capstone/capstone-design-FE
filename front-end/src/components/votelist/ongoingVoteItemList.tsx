@@ -34,6 +34,7 @@ export default function OngoingVoteItemList() {
         const fetchBallotList = async () => {
             const contents = await getBallotPageContent('진행중', currentPage);
             setBallots(contents);
+            console.log(contents)
         };
         fetchBallotList();
 
@@ -48,7 +49,7 @@ export default function OngoingVoteItemList() {
         // });
         getBallotList('진행중', 'pageNumber').then((pageNum) => {
             setPageNumber(pageNum);
-            console.log(pageNumber)
+            //console.log(pageNumber)
         });
 
     }, [currentPage]);    
