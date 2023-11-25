@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
-import AdminCandidatesModal from "../modal/adminCandidatesModal";
+import AdminCandidatesModal from "../candidate/adminCandidatesModal";
 import { useRecoilState } from "recoil";
 import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
 import { Candidate } from "@/apis/types";
