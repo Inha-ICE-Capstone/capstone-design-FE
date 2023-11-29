@@ -6,6 +6,7 @@ import { getOrderdList, sendBannerStatus } from "@/apis/thompson";
 export default function BannerWrap() {
     const router = useRouter();
 
+    // 현재 url에서 ballotId 추출
     const pathname = usePathname();
     const ballotId = parseInt(pathname.split('/')[2]);
 
@@ -13,6 +14,7 @@ export default function BannerWrap() {
     const [successList, setSuccessList] = useState<number[]>([]);
     const [failureList, setFailureList] = useState([]);
     
+    // ballotId에 따른 배너의 orderedList 불러옴
     useEffect(() => {
         getOrderdList(ballotId).then((list) => {
             setOrderedList(list);
@@ -22,6 +24,7 @@ export default function BannerWrap() {
         })
     }, [])
 
+    /** 배너 클릭시 successList, FailureList 갱신 */
     const handleBannerClick = (banner: number) => {
         setSuccessList([...successList, banner]);
         setFailureList(failureList.filter(id => id !== banner));
@@ -32,6 +35,7 @@ export default function BannerWrap() {
         console.log(failureList);
     }, [successList, failureList])
 
+    /** 서버에 배너 update 보냄 */
     const handleSubmit = () => {
         sendBannerStatus(ballotId, successList, failureList);
         router.push(`/ballot/ongoing`);

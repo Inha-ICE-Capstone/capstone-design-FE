@@ -128,9 +128,9 @@ export default function AdminCandidatesModal({ ballotId }: any) {
     return (
         <div className="flex flex-col items-center mx-4 my-4">
             {candidates.length > 0 && (
-                <div className="w-full md:w-1/3 md:justify-start"> 
+                <div className="w-full md:w-3/5 md:justify-start"> 
                     {candidates.map((candidate) => (
-                        <div key={candidate.candidateId} className="flex items-center px-4 py-2 border border-grey rounded-lg my-2">
+                        <div key={candidate.candidateId} className="flex h-24 items-center px-4 py-2 border border-grey rounded-lg my-2">
                             <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>
                             <span>{candidate.candidateName}</span>
                         </div>
