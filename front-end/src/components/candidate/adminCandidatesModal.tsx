@@ -6,7 +6,7 @@ import Image from "next/image";
 import { RiFileAddFill } from "react-icons/ri";
 import { AiFillPlusCircle } from "react-icons/ai"
 import { useRecoilState } from "recoil";
-import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
+import { isModalState, isLoadingState } from "@/recoil/atoms/ModalAtom";
 
 export default function AdminCandidatesModal({ ballotId }: any) {
     const [modal, setModal] = useRecoilState(isModalState);

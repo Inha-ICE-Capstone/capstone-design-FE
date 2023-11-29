@@ -3,7 +3,7 @@ import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
 import AdminCandidatesModal from "../candidate/adminCandidatesModal";
 import { useRecoilState } from "recoil";
-import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
+import { isModalState, isLoadingState } from "@/recoil/atoms/ModalAtom";
 import { Candidate } from "@/apis/types";
 import { createBandits } from "@/apis/thompson";
 
