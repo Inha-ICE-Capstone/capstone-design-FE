@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 
 export default function CandidatesModal({ ballotId }: any) {
     const router = useRouter();
-
     const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [selectedCandidateId, setSelectedCandidateId] = useState(0);
 
