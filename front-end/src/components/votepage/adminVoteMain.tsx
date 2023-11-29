@@ -107,7 +107,7 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
     let createdBanners = [1, 2, 3, 4, 5];
 
     const handleAddBandits = () => {
-        createBandits(ballotID, createdBanners);
+        createBandits("ballot", ballotID, createdBanners);
         alert(`서비스 배너 추가 완료!`)
     }
 

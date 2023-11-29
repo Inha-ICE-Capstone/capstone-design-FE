@@ -1,36 +1,29 @@
 import CandidateBannerComponent from "./candidateBannerComponent";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { getOrderdList, sendBannerStatus } from "@/apis/thompson";
+import { getOrderedList, sendBannerStatus } from "@/apis/thompson";
 
 export default function CandidateBannerWrap(candidateId: any) {
     const router = useRouter();
 
+    const [orderdList, setOrderedList] = useState([]);
+    const [successList, setSuccessList] = useState<number[]>([]);
+    const [failureList, setFailureList] = useState([]);
     
-    const pathname = usePathname();
-    const ballotId = parseInt(pathname.split('/')[2]);
 
-    // const [orderdList, setOrderedList] = useState([]);
-    // const [successList, setSuccessList] = useState<number[]>([]);
-    // const [failureList, setFailureList] = useState([]);
-    
-    const orderdList = [
-        1, 2, 3
-    ]
-
-    // useEffect(() => {
-    //     getOrderdList(ballotId).then((list) => {
-    //         setOrderedList(list);
-    //         setFailureList(list);
-    //         //console.log(orderdList);
-    //         //console.log(failureList);
-    //     })
-    // }, [])
+    useEffect(() => {
+        getOrderedList("candidate", candidateId).then((list) => {
+            setOrderedList(list);
+            setFailureList(list);
+            //console.log(orderdList);
+            //console.log(failureList);
+        })
+    }, [])
 
     const handleBannerClick = (banner: number) => {
-        //setSuccessList([...successList, banner]);
-        //setFailureList(failureList.filter(id => id !== banner));
-        console.log(candidateId, banner)
+        setSuccessList([...successList, banner]);
+        setFailureList(failureList.filter(id => id !== banner));
+        //console.log(candidateId, banner)
     }
 
     // useEffect(() => {
@@ -38,10 +31,13 @@ export default function CandidateBannerWrap(candidateId: any) {
     //     console.log(failureList);
     // }, [successList, failureList])
 
-    // const handleSubmit = () => {
-    //     sendBannerStatus(ballotId, successList, failureList);
-    //     router.push(`/ballot/ongoing`);
-    // }
+    const handleSubmit = () => {
+        sendBannerStatus("candidate", candidateId, successList, failureList);
+    }
+
+    useEffect(() => {
+        handleSubmit();
+    }, [candidateId])
 
     return (
         <div className="flex justify-center mt-4">

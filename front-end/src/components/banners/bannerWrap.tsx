@@ -1,7 +1,7 @@
 import BannerComponent from "./bannerComponent";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { getOrderdList, sendBannerStatus } from "@/apis/thompson";
+import { getOrderedList, sendBannerStatus } from "@/apis/thompson";
 
 export default function BannerWrap() {
     const router = useRouter();
@@ -14,9 +14,10 @@ export default function BannerWrap() {
     const [successList, setSuccessList] = useState<number[]>([]);
     const [failureList, setFailureList] = useState([]);
     
+    
     // ballotId에 따른 배너의 orderedList 불러옴
     useEffect(() => {
-        getOrderdList(ballotId).then((list) => {
+        getOrderedList("ballot", ballotId).then((list) => {
             setOrderedList(list);
             setFailureList(list);
             //console.log(orderdList);
@@ -37,7 +38,7 @@ export default function BannerWrap() {
 
     /** 서버에 배너 update 보냄 */
     const handleSubmit = () => {
-        sendBannerStatus(ballotId, successList, failureList);
+        sendBannerStatus("ballot", ballotId, successList, failureList);
         router.push(`/ballot/ongoing`);
     }
 

@@ -17,7 +17,7 @@ export default function Ongoing() {
     return (
         <>
         <Header />
-        <div className="mx-24">
+        <div className="mx-4 md:mx-24">
             <OngoingTab />
             <OngoingVoteItemList />
         </div>
