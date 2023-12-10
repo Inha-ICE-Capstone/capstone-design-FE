@@ -83,7 +83,7 @@ export default function VoteItem( {ballotID}: VoteItemProps ) {
                 {ballotImage && (
                 // "Image is missing required "src" property" 오류 회피
                     <>
-                        <Image src={ballotImage} alt="투표 이미지" width={120} height={120} placeholder="blur" blurDataURL={ballotImage}/>
+                        <Image src={ballotImage} alt="투표 이미지" width={120} height={120} objectFit="contain" placeholder="blur" blurDataURL={ballotImage} />
                     </>
                 )}
             </div>
