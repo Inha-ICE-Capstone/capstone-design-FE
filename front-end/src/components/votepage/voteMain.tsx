@@ -190,7 +190,7 @@ export default function VoteMain({ballotID} : VoteMainProps) {
                 )
             }
             {
-                isAdmin && (ballotStatus === '진행중') && (
+                isAdmin && (ballotStatus === '진행중') && (ballotID === 2) && (
                     <div>
                         <TurnoutRegressionModal ballotId={ballotID}/>
                     </div>
