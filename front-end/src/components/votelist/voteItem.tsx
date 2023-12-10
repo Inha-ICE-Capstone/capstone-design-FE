@@ -90,7 +90,11 @@ export default function VoteItem( {ballotID}: VoteItemProps ) {
             <div className="flex flex-col px-4 py-4">
                 <span className="text-lg font-bold">{ballotName}</span>
                 <span>{`${startYear}년 ${startMonth}월 ${startDay}일~ ${endYear}년 ${endMonth}월 ${endDay}일`}</span>
-                <span>{`${ballotMinAge}세 ~ ${ballotMaxAge}세`}</span>
+                {ballotMinAge === null || ballotMaxAge === null ? (
+                    <span>전 연령 대상</span>
+                ) : (
+                    <span>{ballotMinAge}세 ~ {ballotMaxAge}세</span>
+                )}
                 <span>{`${ballotSubjectRegion} 거주 ${ballotSubjectGender}`}</span>
                 <span>{ballotBriefDescription}</span>
             </div>
