@@ -1,6 +1,5 @@
 import { ballotBannerDummy } from "./bannerDummy"
 import { HiLink } from "react-icons/hi";
-import Image from "next/image";
 
 interface Props {
     ballotId: number,
@@ -28,7 +27,7 @@ export default function BannerComponent({ballotId, bannerId, handleClick}:Props)
             >
                 <div className="flex justify-evenly w-full m-4">
                     <div className="w-1/4">
-                        <Image src={image_path} width={16} height={16} alt="이미지"/>
+                        <img src={image_path} className="w-16 h-16 object-contain" alt="이미지"/>
                     </div>
                     <div className="flex w-3/4 items-center">
                         <span className="w-4/5 text-center">{title}</span>

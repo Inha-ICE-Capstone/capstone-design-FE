@@ -78,12 +78,12 @@ export default function VoteItem( {ballotID}: VoteItemProps ) {
     }, [ballotID])
 
     return (
-        <div className="flex mx-2 border border-brightgrey shadow-lg rounded-lg">
-            <div className="flex p-4 w-30 h-30 items-center">
+        <div className="flex mx-2 border border-brightgrey shadow-lg rounded-lg items-center">
+            <div className="flex p-4 w-32 h-32 object-contain items-center">
                 {ballotImage && (
                 // "Image is missing required "src" property" 오류 회피
                     <>
-                        <Image src={ballotImage} alt="투표 이미지" width={120} height={120} objectFit="contain" placeholder="blur" blurDataURL={ballotImage} />
+                        <Image src={ballotImage} alt="투표 이미지" height={120} width={120} objectFit="contain" placeholder="blur" blurDataURL={ballotImage} />
                     </>
                 )}
             </div>
